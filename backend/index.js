@@ -3,6 +3,7 @@ import 'dotenv/config';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
+import router from './routes/route.js';
 
 const app = express();
 const port = 3001;
@@ -22,6 +23,9 @@ app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 
 // adding cookieParser to my app
 app.use(cookieParser());
+
+// Lets the server to listen to all files
+app.use('/api', router);
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
