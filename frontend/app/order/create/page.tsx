@@ -2,29 +2,14 @@
 import { useState } from 'react';
 import { validateInput } from '../../../lib/validateInput';
 import styled from 'styled-components';
-import axios from 'axios';
 import { toast } from 'sonner';
 import userStore from '../../../lib/store';
-import { redirect } from 'next/navigation';
-
-export interface NewOrder {
-  customerid: number;
-  customername: string;
-  email: string;
-  product: {
-    productid: string;
-    productname: string;
-    description: string;
-    price: number;
-    quantity: number;
-    category: string;
-  };
-  paymentmethod: string;
-  totalamount: number;
-}
+import { NewOrder } from '../../../types/order.type';
+import useOrder from '../../../hooks/use-order';
 
 export default function CreateOrderPage() {
-  const emptyProduct = {
+  const { createOrder } = useOrder();
+  const [formData, setFormData] = useState<NewOrder>({
     customerid: 0,
     customername: '',
     email: '',
@@ -38,12 +23,9 @@ export default function CreateOrderPage() {
     },
     paymentmethod: '',
     totalamount: 0,
-  };
-  const [formData, setFormData] = useState<NewOrder>(emptyProduct);
+  });
 
   const { user } = userStore();
-
-  if (!user) redirect('/');
 
   function handleInputChange(
     e: React.ChangeEvent<
@@ -76,36 +58,37 @@ export default function CreateOrderPage() {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    async function createOrder(form: NewOrder) {
-      axios.defaults.withCredentials = true;
-      await axios
-        .post(`http://localhost:3001/api/orders/`, {
-          ...form,
-          name: user?.username,
-          customerid: user?.username,
-        })
-        .then((res) => {
-          if (res.status === 201) {
-            toast(res.data.message);
-
-            setFormData(emptyProduct);
-          }
-        });
-    }
-
     if (user) {
       const { error, value } = validateInput({
         ...formData,
         customername: user?.username,
         customerid: user?.customerid,
         email: user?.email,
-        product: { ...formData.product, productid: '84875849' },
+        product: {
+          ...formData.product,
+          productid: new Date().getTime().toString(),
+        },
       });
       if (error) {
-        toast(error.details[0].message);
-        console.error('Validation Error:', error.details[0].message);
+        toast.error(error.details[0].message);
       } else {
         createOrder(formData);
+        // clearing input
+        setFormData({
+          customerid: 0,
+          customername: '',
+          email: '',
+          product: {
+            productid: '',
+            productname: '',
+            description: '',
+            price: 0,
+            quantity: 0,
+            category: '',
+          },
+          paymentmethod: '',
+          totalamount: 0,
+        });
       }
     }
   }

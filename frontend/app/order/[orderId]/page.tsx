@@ -64,7 +64,7 @@ export default function OrderPage({ params }: { params: { orderId: string } }) {
       .then((res) => {
         if (res.status === 200) {
           // setOrder(res.data.order);
-          router.push('/order');
+          router.push('/dashboard');
         } else {
           toast(res.data.message);
         }
