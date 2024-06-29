@@ -1,6 +1,5 @@
 'use client';
 import styled from 'styled-components';
-import ordersData from '../../sample-data/db.json';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -80,7 +79,7 @@ export default function PurchaseDetails() {
         <div>
           <h1>Login to view your orders</h1>
           <p>For testings, user</p>
-          <p>Email: naka@gmail.com</p>
+          <p>Email: testuser@gmail.com</p>
         </div>
       )}
     </MainWrapper>
