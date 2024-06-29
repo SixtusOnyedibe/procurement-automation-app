@@ -7,22 +7,15 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import userStore from '../lib/store';
 
-interface CardInterface {
-  accountComponentOpen: boolean;
-  setAccountComponentOpen: Dispatch<SetStateAction<boolean>>;
-}
-
-export default function UserLogin({
-  accountComponentOpen,
-  setAccountComponentOpen,
-}: CardInterface) {
+export default function UserLogin() {
   const [userInput, setUserInput] = useState({
     email: '',
     password: '',
   });
 
   const [showPassword, setShowPassword] = useState(false);
-  const { user, setUser } = userStore((state) => state);
+  const { user, setUser, accountComponentOpen, setAccountComponentOpen } =
+    userStore((state) => state);
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

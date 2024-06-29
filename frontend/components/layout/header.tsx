@@ -7,16 +7,12 @@ import { useState } from 'react';
 import UserLogin from '../user-login';
 
 export default function Header() {
-  const { user } = userStore((state) => state);
-  const [accountComponentOpen, setAccountComponentOpen] = useState(false);
+  const { user, accountComponentOpen, setAccountComponentOpen } = userStore(
+    (state) => state
+  );
   return (
     <HeaderStyle>
-      {accountComponentOpen && (
-        <UserLogin
-          accountComponentOpen={accountComponentOpen}
-          setAccountComponentOpen={setAccountComponentOpen}
-        />
-      )}
+      {accountComponentOpen && <UserLogin />}
       <nav>
         <div>
           <h3>Barrel</h3>

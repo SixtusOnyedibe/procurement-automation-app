@@ -5,7 +5,8 @@ import { MdDashboard, MdOutlineAdd } from 'react-icons/md';
 import userStore from '../../lib/store';
 
 export default function SideBar() {
-  const { user, setUser } = userStore((state) => state);
+  const { user, setUser, accountComponentOpen, setAccountComponentOpen } =
+    userStore((state) => state);
   return (
     <MainContainer>
       <ul>
@@ -23,11 +24,22 @@ export default function SideBar() {
           </li>
         </Link>
         <hr />
-        <div className='log-out-btn-container'>
-          <button className='log-out-btn' onClick={() => setUser(null)}>
-            <h5>Logout</h5>
-          </button>
-        </div>
+        {user ? (
+          <div className='log-out-btn-container'>
+            <button className='log-out-btn' onClick={() => setUser(null)}>
+              <h5>Logout</h5>
+            </button>
+          </div>
+        ) : (
+          <div className='log-out-btn-container'>
+            <button
+              className='log-out-btn log-in-btn'
+              onClick={() => setAccountComponentOpen(true)}
+            >
+              <h5>Login</h5>
+            </button>
+          </div>
+        )}
       </ul>
     </MainContainer>
   );
@@ -91,6 +103,10 @@ const MainContainer = styled.div`
       outline: none;
       cursor: pointer;
       margin-right: 5rem;
+    }
+
+    .log-in-btn {
+      background-color: #090413;
     }
   }
 `;

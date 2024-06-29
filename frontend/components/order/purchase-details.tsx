@@ -47,21 +47,21 @@ export default function PurchaseDetails() {
         })
         .catch((error) => toast(error.response.data.message));
     }
-    fetchOrder();
+    if (user) fetchOrder();
   }, [user]);
 
   return (
     <MainWrapper>
-      <div className='order-container'>
-        <ul className='orders-row'>
-          <p>Order ID</p>
-          <p>Item name</p>
-          <p className='order-quantity'>Quantity</p>
-          <p className='total-amount'>Total amount</p>
-          <p className='order-status'>status</p>
-        </ul>
-        {orders &&
-          orders?.map((order) => (
+      {orders ? (
+        <div className='order-container'>
+          <ul className='orders-row'>
+            <p>Order ID</p>
+            <p>Item name</p>
+            <p className='order-quantity'>Quantity</p>
+            <p className='total-amount'>Total amount</p>
+            <p className='order-status'>status</p>
+          </ul>
+          {orders.map((order) => (
             <div className='order-wrapper' key={order.orderId}>
               <hr />
               <Link href={`/order/${order.orderId}`}>
@@ -75,7 +75,14 @@ export default function PurchaseDetails() {
               </Link>
             </div>
           ))}
-      </div>
+        </div>
+      ) : (
+        <div>
+          <h1>Login to view your orders</h1>
+          <p>For testings, user</p>
+          <p>Email: naka@gmail.com</p>
+        </div>
+      )}
     </MainWrapper>
   );
 }
