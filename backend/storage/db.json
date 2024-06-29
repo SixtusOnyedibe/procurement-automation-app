@@ -100,9 +100,9 @@
       ]
     },
     {
-      "customerId": 75456,
-      "customername": "Create new order",
-      "email": "naka@gmail.com",
+      "customerid": 75456,
+      "customername": "Test User",
+      "email": "testuser@gmail.com",
       "password": 12345,
       "orders": [
         {
@@ -389,6 +389,163 @@
           },
           "paymentmethod": "Paypal",
           "totalamount": 25000
+        }
+      ]
+    },
+    {
+      "customerid": "Test User",
+      "customername": "",
+      "email": "",
+      "orders": [
+        {
+          "orderId": "1719645363733",
+          "orderDate": "2024-06-29T07:16:03.733Z",
+          "orderStatus": "pending",
+          "product": {
+            "productid": "",
+            "productname": "Second Big Plant",
+            "description": "nothing really",
+            "price": "10",
+            "quantity": "25",
+            "category": "xfcgvhb"
+          },
+          "paymentmethod": "zolle",
+          "totalamount": 0
+        },
+        {
+          "orderId": "1719645377097",
+          "orderDate": "2024-06-29T07:16:17.097Z",
+          "orderStatus": "pending",
+          "product": {
+            "productid": "",
+            "productname": "Second Big Plant",
+            "description": "nothing really",
+            "price": "10",
+            "quantity": "25",
+            "category": "xfcgvhb"
+          },
+          "paymentmethod": "zolle",
+          "totalamount": 0
+        },
+        {
+          "orderId": "1719645472921",
+          "orderDate": "2024-06-29T07:17:52.921Z",
+          "orderStatus": "pending",
+          "product": {
+            "productid": "",
+            "productname": "Second Big Plant",
+            "description": "nothing really",
+            "price": "10",
+            "quantity": "25",
+            "category": "xfcgvhb"
+          },
+          "paymentmethod": "zolle",
+          "totalamount": 0
+        },
+        {
+          "orderId": "1719645494107",
+          "orderDate": "2024-06-29T07:18:14.107Z",
+          "orderStatus": "pending",
+          "product": {
+            "productid": "",
+            "productname": "Second Big Plant",
+            "description": "nothing really",
+            "price": "10",
+            "quantity": "25",
+            "category": "xfcgvhb"
+          },
+          "paymentmethod": "zolle",
+          "totalamount": 0
+        },
+        {
+          "orderId": "1719645515116",
+          "orderDate": "2024-06-29T07:18:35.116Z",
+          "orderStatus": "pending",
+          "product": {
+            "productid": "",
+            "productname": "Second Big Plant",
+            "description": "nothing really",
+            "price": "10",
+            "quantity": "25",
+            "category": "xfcgvhb"
+          },
+          "paymentmethod": "zolle",
+          "totalamount": 0
+        },
+        {
+          "orderId": "1719645561761",
+          "orderDate": "2024-06-29T07:19:21.761Z",
+          "orderStatus": "pending",
+          "product": {
+            "productid": "",
+            "productname": "Size 4 Plant",
+            "description": "Nothing",
+            "price": "10",
+            "quantity": "25",
+            "category": "xfcgvhb"
+          },
+          "paymentmethod": "Zollo",
+          "totalamount": 0
+        },
+        {
+          "orderId": "1719645568711",
+          "orderDate": "2024-06-29T07:19:28.711Z",
+          "orderStatus": "pending",
+          "product": {
+            "productid": "",
+            "productname": "Size 4 Plant",
+            "description": "Nothing",
+            "price": "10",
+            "quantity": "25",
+            "category": "xfcgvhb"
+          },
+          "paymentmethod": "Zollo",
+          "totalamount": 0
+        },
+        {
+          "orderId": "1719645571578",
+          "orderDate": "2024-06-29T07:19:31.578Z",
+          "orderStatus": "pending",
+          "product": {
+            "productid": "",
+            "productname": "Size 4 Plant",
+            "description": "Nothing",
+            "price": "10",
+            "quantity": "25",
+            "category": "xfcgvhb"
+          },
+          "paymentmethod": "Zollo",
+          "totalamount": 0
+        },
+        {
+          "orderId": "1719645573472",
+          "orderDate": "2024-06-29T07:19:33.472Z",
+          "orderStatus": "pending",
+          "product": {
+            "productid": "",
+            "productname": "Size 4 Plant",
+            "description": "Nothing",
+            "price": "10",
+            "quantity": "25",
+            "category": "xfcgvhb"
+          },
+          "paymentmethod": "Zollo",
+          "totalamount": 0
+        },
+        {
+          "orderId": "1719645689198",
+          "orderDate": "2024-06-29T07:21:29.198Z",
+          "orderStatus": "pending",
+          "product": {
+            "productid": "",
+            "productname": "Size 4 Plant",
+            "description": "Nothing",
+            "price": "10",
+            "quantity": "25",
+            "category": "xfcgvhb"
+          },
+          "paymentmethod": "Nothing",
+          "totalamount": 0
         }
       ]
     }
