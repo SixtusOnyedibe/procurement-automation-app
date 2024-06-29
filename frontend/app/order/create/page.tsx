@@ -112,6 +112,7 @@ export default function CreateOrderPage() {
 
   return (
     <MainWrapper>
+      <h1>Create new order</h1>
       <form onSubmit={handleSubmit}>
         <div className='product-form-section'>
           <label htmlFor='productname'>
@@ -186,6 +187,9 @@ const MainWrapper = styled.div`
   width: 100%;
   background-color: #f9fafb;
 
+  h1 {
+    margin: 5rem 0;
+  }
   form {
     display: grid;
     gap: 2rem;
@@ -207,6 +211,7 @@ const MainWrapper = styled.div`
       height: 10rem;
       width: 100%;
       resize: none;
+      padding: 1rem;
     }
 
     p {
