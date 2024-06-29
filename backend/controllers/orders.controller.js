@@ -167,13 +167,13 @@ export const createOrder = async (req, res) => {
 export const updateOrderById = async (req, res) => {
   try {
     const { id: orderId } = req.params; // Order ID from URL params
-    const { customerId, orderStatus, products, paymentMethod, totalAmount } =
-      req.body;
+    const { customerid, orderStatus, product } = req.body;
+    let totalamount = product.price * product.quantity;
 
     // Validate request body
-    if (!orderStatus && !products && !paymentMethod && !totalAmount) {
+    if (!orderStatus && !product) {
       return res.status(400).json({
-        message: 'No fields provided for update',
+        message: 'Fields provided incomplete',
         success: false,
       });
     }
@@ -183,7 +183,7 @@ export const updateOrderById = async (req, res) => {
 
     // Find the user by customerId
     const userIndex = data.users.findIndex(
-      (user) => user.customerId === customerId
+      (user) => user.customerid === customerid
     );
 
     if (userIndex === -1) {
@@ -208,11 +208,11 @@ export const updateOrderById = async (req, res) => {
     // Update order fields if provided in the request
     if (orderStatus)
       data.users[userIndex].orders[orderIndex].orderStatus = orderStatus;
-    if (products) data.users[userIndex].orders[orderIndex].products = products;
-    if (paymentMethod)
-      data.users[userIndex].orders[orderIndex].paymentMethod = paymentMethod;
-    if (totalAmount)
-      data.users[userIndex].orders[orderIndex].totalAmount = totalAmount;
+    if (product) data.users[userIndex].orders[orderIndex].product = product;
+    // if (paymentmethod)
+    //   data.users[userIndex].orders[orderIndex].paymentmethod = paymentmethod;
+    if (totalamount)
+      data.users[userIndex].orders[orderIndex].totalamount = totalamount;
 
     // Write updated orders back to the JSON file
     writeOrders(data);
