@@ -113,27 +113,27 @@
             "productid": "987654",
             "productname": "Big gun",
             "description": "A useful widget",
-            "price": 19.99,
-            "quantity": "20000",
+            "price": "25",
+            "quantity": "10",
             "category": "Kala"
           },
           "paymentmethod": "Paypal",
-          "totalamount": 399799.99999999994
+          "totalamount": 250
         },
         {
           "orderId": "1719582286066",
           "orderDate": "2024-06-28T13:44:46.066Z",
-          "orderStatus": "pending",
+          "orderStatus": "success",
           "product": {
             "productid": "987654",
             "productname": "Widget A",
             "description": "A useful widget",
-            "price": 19.99,
-            "quantity": 2,
+            "price": "10",
+            "quantity": "5",
             "category": "Widgets"
           },
           "paymentmethod": "Paypal",
-          "totalamount": 25000
+          "totalamount": 50
         },
         {
           "orderId": "1719582287283",
@@ -273,17 +273,17 @@
         {
           "orderId": "1719582299215",
           "orderDate": "2024-06-28T13:44:59.215Z",
-          "orderStatus": "pending",
+          "orderStatus": "success",
           "product": {
             "productid": "987654",
-            "productname": "Widget A",
-            "description": "A useful widget",
-            "price": 19.99,
-            "quantity": 2,
+            "productname": "Tar chalk",
+            "description": "For who knows what",
+            "price": "700",
+            "quantity": "25",
             "category": "Widgets"
           },
           "paymentmethod": "Paypal",
-          "totalamount": 25000
+          "totalamount": 17500
         }
       ]
     },

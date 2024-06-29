@@ -2,51 +2,24 @@
 import styled from 'styled-components';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { toast } from 'sonner';
 import userStore from '../../lib/store';
-
-interface Product {
-  productid: string;
-  productname: string;
-  description: string;
-  price: number;
-  quantity: number;
-  category: string;
-}
-
-interface Order {
-  orderId: string;
-  orderDate: string;
-  orderStatus: string;
-  product: Product;
-  paymentmethod: string;
-  totalamount: number;
-}
+import useOrder from '../../hooks/use-order';
+import { Order } from '../../types/order.type';
 
 export default function PurchaseDetails() {
   const [orders, setOrders] = useState<Order[] | null>(null);
   const { user } = userStore((state) => state);
 
+  const { fetchOrders } = useOrder();
+
   useEffect(() => {
-    async function fetchOrder() {
-      const userEmail = user?.email;
-      await axios
-        .get('http://localhost:3001/api/orders', {
-          params: {
-            email: userEmail,
-          },
-        })
-        .then((res) => {
-          if (res.status === 200) {
-            setOrders(res.data.orders);
-          } else {
-            toast(res.data.message);
-          }
-        })
-        .catch((error) => toast(error.response.data.message));
-    }
-    if (user) fetchOrder();
+    const fetchedOrders = async () => {
+      if (user) {
+        const data = await fetchOrders();
+        if (data) setOrders(data);
+      }
+    };
+    fetchedOrders();
   }, [user]);
 
   return (
