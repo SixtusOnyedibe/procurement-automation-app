@@ -1,6 +1,6 @@
 'use client';
 
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import { IoCloseOutline } from 'react-icons/io5';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -23,15 +23,21 @@ export default function UserLogin() {
       .post('http://localhost:3001/api/auth/login', userInput)
       .then((res) => {
         if (res.status === 201) {
+          console.log(res);
           setUser({
             username: res.data.user.customername,
             email: res.data.user.email,
+            // customername: res.data.user.customername,
+            customerid: res.data.user.customerid,
           });
         } else {
-          toast(res.data.message);
+          // toast(res.data.message);
         }
       })
-      .catch((error) => toast(error));
+      .catch((error) => {
+        console.log(error.response.data.message);
+        toast(error.response.data.message);
+      });
   };
 
   const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {

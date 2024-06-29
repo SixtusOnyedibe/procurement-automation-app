@@ -4,6 +4,8 @@ import { validateInput } from '../../../lib/validateInput';
 import styled from 'styled-components';
 import axios from 'axios';
 import { toast } from 'sonner';
+import userStore from '../../../lib/store';
+import { redirect } from 'next/navigation';
 
 export interface NewOrder {
   customerid: number;
@@ -22,7 +24,7 @@ export interface NewOrder {
 }
 
 export default function CreateOrderPage() {
-  const [formData, setFormData] = useState<NewOrder>({
+  const emptyProduct = {
     customerid: 0,
     customername: '',
     email: '',
@@ -36,7 +38,12 @@ export default function CreateOrderPage() {
     },
     paymentmethod: '',
     totalamount: 0,
-  });
+  };
+  const [formData, setFormData] = useState<NewOrder>(emptyProduct);
+
+  const { user } = userStore();
+
+  if (!user) redirect('/');
 
   function handleInputChange(
     e: React.ChangeEvent<
@@ -69,35 +76,37 @@ export default function CreateOrderPage() {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    console.log(formData);
-
     async function createOrder(form: NewOrder) {
       axios.defaults.withCredentials = true;
       await axios
         .post(`http://localhost:3001/api/orders/`, {
           ...form,
-          name: 'Sixtus',
-          customerid: 838874849,
+          name: user?.username,
+          customerid: user?.username,
         })
-        .then((res) => console.log(res));
+        .then((res) => {
+          if (res.status === 201) {
+            toast(res.data.message);
+
+            setFormData(emptyProduct);
+          }
+        });
     }
 
-    const { error, value } = validateInput({
-      ...formData,
-      customername: 'Sixtus',
-      customerid: 838874849,
-      email: 'testing@test.com',
-      product: { ...formData.product, productid: '84875849' },
-    });
-    if (error) {
-      toast(error.details[0].message);
-      console.error('Validation Error:', error.details[0].message);
-
-      // Handle error (e.g., show validation messages)
-    } else {
-      //   console.log('Input validated successfully:', value);
-      createOrder(formData);
-      // Proceed with form submission or data processing
+    if (user) {
+      const { error, value } = validateInput({
+        ...formData,
+        customername: user?.username,
+        customerid: user?.customerid,
+        email: user?.email,
+        product: { ...formData.product, productid: '84875849' },
+      });
+      if (error) {
+        toast(error.details[0].message);
+        console.error('Validation Error:', error.details[0].message);
+      } else {
+        createOrder(formData);
+      }
     }
   }
 
@@ -155,10 +164,7 @@ export default function CreateOrderPage() {
             onChange={handleInputChange}
           />
         </label>
-        {/* <label htmlFor='orderstatus'>
-          <p>Order Status</p>
-          <input type='text' />
-        </label> */}
+
         <label htmlFor='paymentmethod'>
           <p>Payment method</p>
           <input
