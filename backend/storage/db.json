@@ -7,34 +7,19 @@
       "password": 12345,
       "orders": [
         {
-          "orderId": "1719582279617",
-          "orderDate": "2024-06-28T13:44:39.617Z",
-          "orderStatus": "success",
-          "product": {
-            "productid": "987654",
-            "productname": "Big gun",
-            "description": "A useful widget",
-            "price": "250",
-            "quantity": "10",
-            "category": "Kala"
-          },
-          "paymentmethod": "Paypal",
-          "totalamount": 2500
-        },
-        {
-          "orderId": "1719691890275",
-          "orderDate": "2024-06-29T20:11:30.275Z",
-          "orderStatus": "success",
+          "orderId": "1719703493289",
+          "orderDate": "2024-06-29T23:24:53.289Z",
+          "orderStatus": "pending",
           "product": {
             "productid": "",
-            "productname": "Water Tank",
-            "description": "Big water tank",
-            "price": "250",
-            "quantity": "25",
-            "category": "Tanks"
+            "productname": "Head load",
+            "description": "Head load",
+            "price": "5",
+            "quantity": "5",
+            "category": "Head load"
           },
-          "paymentmethod": "Bank transfer",
-          "totalamount": 6250
+          "paymentmethod": "Head load",
+          "totalamount": 0
         }
       ]
     }

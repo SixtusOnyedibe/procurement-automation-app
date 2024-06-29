@@ -2,12 +2,14 @@ import axios from 'axios';
 import userStore from '../lib/store';
 import { toast } from 'sonner';
 import { NewOrder } from '@/types/order.type';
+import { useRouter } from 'next/navigation';
 
 export default function useOrder() {
   const { user } = userStore((state) => state);
+  const router = useRouter();
 
-  //   fetching orders
-  async function fetchOrders() {
+  //   fetching all orders
+  const fetchOrders = async () => {
     const userEmail = user?.email;
     try {
       const res = await axios.get('http://localhost:3001/api/orders', {
@@ -19,14 +21,36 @@ export default function useOrder() {
       if (res.status === 200) {
         return res.data.orders;
       } else {
-        toast(res.data.message);
+        toast.error(res.data.message);
         return null;
       }
     } catch (error) {
       toast('An error occurred');
       return null;
     }
-  }
+  };
+
+  // Fetching an order
+  const fetchOrder = async (orderId: string) => {
+    try {
+      const res = await axios.get(
+        `http://localhost:3001/api/orders/${orderId}`,
+        {
+          params: {
+            customerid: user?.customerid,
+          },
+        }
+      );
+      if (res.status === 200) {
+        return res.data.order;
+      } else {
+        toast.error(res.data.message);
+        return null;
+      }
+    } catch (error) {
+      toast.error('An error occured');
+    }
+  };
 
   // Creating Orders
   const createOrder = async (form: NewOrder) => {
@@ -47,8 +71,32 @@ export default function useOrder() {
     }
   };
 
+  // Delete order
+  const deleteOrder = async (orderId: string) => {
+    try {
+      const res = await axios.delete(
+        `http://127.0.0.1:3001/api/orders/${orderId}`,
+        {
+          params: {
+            customerid: user?.customerid,
+          },
+        }
+      );
+      if (res.status === 200) {
+        toast.success('Order deleted');
+        router.push('/dashboard');
+      } else {
+        toast.error(res.data.message);
+      }
+    } catch (error) {
+      toast.error('An error occured');
+    }
+  };
+
   return {
     fetchOrders,
+    fetchOrder,
     createOrder,
+    deleteOrder,
   };
 }

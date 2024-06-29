@@ -7,24 +7,8 @@ import { toast } from 'sonner';
 import styled from 'styled-components';
 import userStore from '../../../lib/store';
 import { useRouter } from 'next/navigation';
-
-interface Product {
-  productid: string;
-  productname: string;
-  description: string;
-  price: number;
-  quantity: number;
-  category: string;
-}
-
-interface Order {
-  orderId: string;
-  orderDate: string;
-  orderStatus: string;
-  product: Product;
-  paymentmethod: string;
-  totalamount: number;
-}
+import useOrder from '../../../hooks/use-order';
+import { Order } from '../../../types/order.type';
 
 export default function OrderPage({ params }: { params: { orderId: string } }) {
   const { orderId } = params;
@@ -32,44 +16,20 @@ export default function OrderPage({ params }: { params: { orderId: string } }) {
   const [order, setOrder] = useState<Order | null>(null);
   const router = useRouter();
 
-  useEffect(() => {
-    const customerid = user?.customerid;
+  const { fetchOrder, deleteOrder } = useOrder();
 
-    async function fetchOrder() {
-      await axios
-        .get(`http://127.0.0.1:3001/api/orders/${orderId}`, {
-          params: {
-            customerid: customerid,
-          },
-        })
-        .then((res) => {
-          if (res.status === 200) {
-            setOrder(res.data.order);
-          } else {
-            toast(res.data.message);
-          }
-        })
-        .catch((error) => toast(error.response.data.message));
-    }
-    if (user) fetchOrder();
-  }, [user, orderId]);
+  useEffect(() => {
+    const fetchedOrder = async () => {
+      if (user) {
+        const data = await fetchOrder(orderId);
+        if (data) setOrder(data);
+      }
+    };
+    fetchedOrder();
+  }, [user]);
 
   const handleDeleteOrder = async () => {
-    await axios
-      .delete(`http://127.0.0.1:3001/api/orders/${orderId}`, {
-        params: {
-          customerid: user?.customerid,
-        },
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          // setOrder(res.data.order);
-          router.push('/dashboard');
-        } else {
-          toast(res.data.message);
-        }
-      })
-      .catch((error) => toast(error.response.data.message));
+    deleteOrder(orderId);
   };
 
   return (
