@@ -1,0 +1,98 @@
+[
+  {
+    "customerId": "78910",
+    "name": "Test User",
+    "email": "test@gmail.com",
+    "orders": [
+      {
+        "orderId": "123456",
+        "orderDate": "2024-06-27T14:53:00Z",
+        "orderStatus": "pending",
+        "product": {
+          "productId": "987654",
+          "name": "Widget A",
+          "description": "A useful widget",
+          "price": 19.99,
+          "quantity": 2,
+          "category": "Widgets"
+        },
+        "paymentMethod": "credit card",
+        "totalAmount": 39.98
+      }
+    ]
+  },
+  { 
+    "customerId": "45678",
+    "name": "Jane Smith",
+    "email": "janesmith@example.com",
+    "orders": [
+      {
+        "orderId": "7891011",
+        "orderDate": "2024-06-28T15:00:00Z",
+        "orderStatus": "shipped",
+        "product": {
+          "productId": "111213",
+          "name": "Gizmo C",
+          "description": "A fancy gizmo",
+          "price": 49.99,
+          "quantity": 1,
+          "category": "Gizmos"
+        },
+        "paymentMethod": "PayPal",
+        "totalAmount": 49.99
+      }
+    ]
+  },
+  {
+    "customerId": "75456",
+    "name": "Create new order",
+    "email": "newOrder@gmail.com",
+    "orders": [
+      {
+        "orderId": "1719525139662",
+        "orderDate": "2024-06-27T21:52:19.662Z",
+        "orderStatus": "pending",
+        "product": {
+          "productId": "987654",
+          "name": "Widget A",
+          "description": "A useful widget",
+          "price": 19.99,
+          "quantity": 2,
+          "category": "Widgets"
+        },
+        "paymentMethod": "Paypal",
+        "totalAmount": 39.98
+      },
+      {
+        "orderId": "1719525142890",
+        "orderDate": "2024-06-27T21:52:22.890Z",
+        "orderStatus": "pending",
+        "product": {
+          "productId": "987654",
+          "name": "Widget A",
+          "description": "A useful widget",
+          "price": 19.99,
+          "quantity": 2,
+          "category": "Widgets"
+        },
+        "paymentMethod": "Paypal",
+        "totalAmount": 39.98
+      },
+      {
+        "orderId": "1719525143823",
+        "orderDate": "2024-06-27T21:52:23.823Z",
+        "orderStatus": "pending",
+        "product": {
+          "productId": "987654",
+          "name": "Widget A",
+          "description": "A useful widget",
+          "price": 19.99,
+          "quantity": 2,
+          "category": "Widgets"
+        },
+        "paymentMethod": "Paypal",
+        "totalAmount": 39.98
+      }
+    ]
+  }
+]
