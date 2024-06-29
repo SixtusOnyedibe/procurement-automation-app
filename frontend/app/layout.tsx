@@ -1,7 +1,10 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import StyledComponentsRegistry from './lib/registry';
+import StyledComponentsRegistry from '../lib/registry';
+import Header from '../components/layout/header';
+import SideBar from '../components/layout/side-bar';
+import Toasty from '../components/layout/toaster';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,8 +20,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={inter.className}>
-        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+      <body
+        className={inter.className}
+        suppressHydrationWarning={true} //solves this problem Warning: Extra attributes from the server: cz-shortcut-listen
+      >
+        <StyledComponentsRegistry>
+          <Header />
+          <SideBar />
+          <Toasty />
+          {children}
+        </StyledComponentsRegistry>
       </body>
     </html>
   );
