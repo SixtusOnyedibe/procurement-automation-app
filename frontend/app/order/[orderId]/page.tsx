@@ -34,10 +34,8 @@ export default function OrderPage({ params }: { params: { orderId: string } }) {
 
   useEffect(() => {
     const customerid = user?.customerid;
-    console.log(customerid, orderId);
 
     async function fetchOrder() {
-      // const userEmail = user?.email;
       await axios
         .get(`http://127.0.0.1:3001/api/orders/${orderId}`, {
           params: {
