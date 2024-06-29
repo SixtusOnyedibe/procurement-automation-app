@@ -108,17 +108,17 @@
         {
           "orderId": "1719582279617",
           "orderDate": "2024-06-28T13:44:39.617Z",
-          "orderStatus": "pending",
+          "orderStatus": "success",
           "product": {
             "productid": "987654",
-            "productname": "Widget A",
+            "productname": "Big gun",
             "description": "A useful widget",
             "price": 19.99,
-            "quantity": 2,
-            "category": "Widgets"
+            "quantity": "20000",
+            "category": "Kala"
           },
           "paymentmethod": "Paypal",
-          "totalamount": 25000
+          "totalamount": 399799.99999999994
         },
         {
           "orderId": "1719582286066",
@@ -545,6 +545,21 @@
             "category": "xfcgvhb"
           },
           "paymentmethod": "Nothing",
+          "totalamount": 0
+        },
+        {
+          "orderId": "1719670560306",
+          "orderDate": "2024-06-29T14:16:00.306Z",
+          "orderStatus": "pending",
+          "product": {
+            "productid": "",
+            "productname": "Second Big Plant",
+            "description": "Nothing",
+            "price": "10",
+            "quantity": "25",
+            "category": "Kala"
+          },
+          "paymentmethod": "zolle",
           "totalamount": 0
         }
       ]
