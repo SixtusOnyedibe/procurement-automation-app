@@ -19,7 +19,7 @@ app.use(
 );
 
 // This enables all CORS - Cross Origin Resource Sharing & credentials
-app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 
 // adding cookieParser to my app
 app.use(cookieParser());
