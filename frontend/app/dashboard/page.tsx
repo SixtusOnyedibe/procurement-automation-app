@@ -1,20 +1,16 @@
 'use client';
 
 import styled from 'styled-components';
+import PurchaseDetails from '../../components/order/purchase-details';
 
 export default function Home() {
   return (
-    <div>
-      <Container>
-        <h1>Dashboard Page</h1>
-      </Container>
-    </div>
+    <Container>
+      <PurchaseDetails />
+    </Container>
   );
 }
 
 const Container = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.5rem;
-  font-size: 1rem;
+  width: 100%;
 `;
