@@ -3,11 +3,35 @@ import { readOrders, writeOrders } from '../services/db.service.js';
 // Function to handle getting all orders
 export const getAllOrders = async (req, res) => {
   try {
-    const allOrders = readOrders();
+    const { email } = req.query;
+
+    // Validate request body
+    if (!email) {
+      return res.status(400).json({
+        message: 'Access denied!',
+        success: false,
+      });
+    }
+
+    // Read orders from JSON file
+    const data = readOrders();
+
+    // Find the user by customerId
+    let foundUser = data.users.find((user) => user.email === email);
+
+    if (!foundUser) {
+      return res.status(400).json({
+        message: 'User not found',
+        success: false,
+      });
+    }
+
+    let user = data.users.filter((user) => user.email === email);
+
     return res.status(200).json({
       success: true,
       message: 'Orders found!',
-      orders: allOrders,
+      orders: user[0].orders,
     });
   } catch (error) {
     return res.status(500).json({
@@ -69,22 +93,28 @@ export const getOrderById = async (req, res) => {
 // Function to handle creating a new order
 export const createOrder = async (req, res) => {
   try {
-    const { customerId, name, email, products, paymentMethod, totalAmount } =
-      req.body;
+    const {
+      customerid,
+      customername,
+      email,
+      product,
+      paymentmethod,
+      totalamount,
+    } = req.body;
 
     // Validate request body
     if (
-      !customerId ||
-      !products ||
-      products.length === 0 ||
-      !paymentMethod ||
-      totalAmount === undefined
+      !customerid ||
+      !product ||
+      !paymentmethod ||
+      totalamount === undefined
     ) {
       return res.status(400).json({
         message: 'Missing required fields',
         success: false,
       });
     }
+    console.log('It ran!');
 
     // Read orders from JSON file
     const data = readOrders();
@@ -94,19 +124,19 @@ export const createOrder = async (req, res) => {
       orderId: new Date().getTime().toString(),
       orderDate: new Date().toISOString(),
       orderStatus: 'pending',
-      products,
-      paymentMethod,
-      totalAmount,
+      product,
+      paymentmethod,
+      totalamount,
     };
 
     // Find the user by customerId
-    let user = data.users.find((user) => user.customerId === customerId);
+    let user = data.users.find((user) => user.customerid === customerid);
 
     if (!user) {
       // If user does not exist, create a new user
       user = {
-        customerId,
-        name,
+        customerid,
+        customername,
         email,
         orders: [newOrder],
       };
@@ -247,6 +277,98 @@ export const deleteOrderById = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: error.message,
+    });
+  }
+};
+
+// User Login and Register
+export const registerUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Validate request body
+    if (!email || !password) {
+      return res.status(400).json({
+        message: 'Missing required fields',
+        success: false,
+      });
+    }
+
+    // Read orders from JSON file
+    const data = readOrders();
+
+    // Find the user by customerId
+    let user = data.users.find((user) => user.email === email);
+
+    if (!user) {
+      // If user does not exist, create a new user
+      user = {
+        customerid,
+        name,
+        email,
+        orders: [newOrder],
+      };
+      data.users.push(user);
+    } else {
+      // If user exists, add the new order to the user's orders
+      user.orders.push(newOrder);
+    }
+
+    // Write updated orders back to the JSON file
+    writeOrders(data);
+
+    return res.status(201).json({
+      success: true,
+      message: 'Order created successfully',
+      order: newOrder,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+      success: false,
+      order: {},
+    });
+  }
+};
+
+// User Login
+export const userLogin = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    // Validate request body
+    if (!email) {
+      return res.status(400).json({
+        message: 'Missing required fields',
+        success: false,
+      });
+    }
+
+    // Read orders from JSON file
+    const data = readOrders();
+
+    // Find the user by customerId
+    let foundUser = data.users.find((user) => user.email === email);
+
+    if (!foundUser) {
+      return res.status(400).json({
+        message: 'User not found',
+        success: false,
+      });
+    }
+
+    let user = data.users.filter((user) => user.email === email);
+
+    return res.status(201).json({
+      success: true,
+      message: 'User found',
+      user: user[0],
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+      success: false,
+      order: {},
     });
   }
 };
