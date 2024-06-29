@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import userStore from '../../lib/store';
 import placeHolder from '../../public/placeholder-user.jpg';
-import { useState } from 'react';
 import UserLogin from '../user-login';
 
 export default function Header() {

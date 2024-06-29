@@ -5,8 +5,9 @@ import { MdDashboard, MdOutlineAdd } from 'react-icons/md';
 import userStore from '../../lib/store';
 
 export default function SideBar() {
-  const { user, setUser, accountComponentOpen, setAccountComponentOpen } =
-    userStore((state) => state);
+  const { user, setUser, setAccountComponentOpen } = userStore(
+    (state) => state
+  );
   return (
     <MainContainer>
       <ul>
