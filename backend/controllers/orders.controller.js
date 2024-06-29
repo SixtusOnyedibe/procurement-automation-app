@@ -45,11 +45,11 @@ export const getAllOrders = async (req, res) => {
 // Function to handle getting a single order by ID
 export const getOrderById = async (req, res) => {
   try {
-    const { customerId } = req.body; // Customer ID from request body
     const { id: orderId } = req.params; // Order ID from URL params
+    const { customerid } = req.query;
 
     // Validate that customerId is provided
-    if (!customerId) {
+    if (!customerid) {
       return res.status(400).json({
         message: 'Customer ID is required!',
         success: false,
@@ -233,7 +233,7 @@ export const updateOrderById = async (req, res) => {
 export const deleteOrderById = async (req, res) => {
   try {
     const { id: orderId } = req.params; // Order ID from URL params
-    const { customerId } = req.body; // Customer ID from request body
+    const { customerId } = req.query; // Customer ID from request body
 
     // Read orders from JSON file
     const data = readOrders();

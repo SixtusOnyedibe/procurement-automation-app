@@ -1,88 +1,110 @@
 'use client';
 
+import axios from 'axios';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 import styled from 'styled-components';
+import userStore from '../../../lib/store';
+import { useRouter } from 'next/navigation';
 
-export default function OrderPage() {
-  const data = {
-    customerId: '75456',
-    email: 'newOrder@gmail.com',
-    name: 'Create new order',
-    orders: [
-      {
-        orderId: '1719525139662',
-        orderDate: '2024-06-27T21:52:19.662Z',
-        orderStatus: 'pending',
-        product: {
-          productId: '987654',
-          name: 'Widget A',
-          description: 'A useful widget',
-          price: 19.99,
-          quantity: 2,
-          category: 'Widgets',
+interface Product {
+  productid: string;
+  productname: string;
+  description: string;
+  price: number;
+  quantity: number;
+  category: string;
+}
+
+interface Order {
+  orderId: string;
+  orderDate: string;
+  orderStatus: string;
+  product: Product;
+  paymentmethod: string;
+  totalamount: number;
+}
+
+export default function OrderPage({ params }: { params: { orderId: string } }) {
+  const { orderId } = params;
+  const { user } = userStore((state) => state);
+  const [order, setOrder] = useState<Order | null>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const customerid = user?.customerid;
+    console.log(customerid, orderId);
+
+    async function fetchOrder() {
+      // const userEmail = user?.email;
+      await axios
+        .get(`http://127.0.0.1:3001/api/orders/${orderId}`, {
+          params: {
+            customerid: customerid,
+          },
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            setOrder(res.data.order);
+          } else {
+            toast(res.data.message);
+          }
+        })
+        .catch((error) => toast(error.response.data.message));
+    }
+    if (user) fetchOrder();
+  }, [user, orderId]);
+
+  const handleDeleteOrder = async () => {
+    await axios
+      .delete(`http://127.0.0.1:3001/api/orders/${orderId}`, {
+        params: {
+          customerid: user?.customerid,
         },
-        paymentMethod: 'Paypal',
-        totalAmount: 39.98,
-      },
-      {
-        orderId: '1719525142890',
-        orderDate: '2024-06-27T21:52:22.890Z',
-        orderStatus: 'pending',
-        product: {
-          productId: '987654',
-          name: 'Widget A',
-          description: 'A useful widget',
-          price: 19.99,
-          quantity: 2,
-          category: 'Widgets',
-        },
-        paymentMethod: 'Paypal',
-        totalAmount: 39.98,
-      },
-      {
-        orderId: '1719525143823',
-        orderDate: '2024-06-27T21:52:23.823Z',
-        orderStatus: 'pending',
-        product: {
-          productId: '987654',
-          name: 'Widget A',
-          description: 'A useful widget',
-          price: 19.99,
-          quantity: 2,
-          category: 'Widgets',
-        },
-        paymentMethod: 'Paypal',
-        totalAmount: 39.98,
-      },
-    ],
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          // setOrder(res.data.order);
+          router.push('/order');
+        } else {
+          toast(res.data.message);
+        }
+      })
+      .catch((error) => toast(error.response.data.message));
   };
+
   return (
     <MainWrapper>
-      <div className='order-id'>
-        <h1>Order - {data.orders[0].orderId}</h1>
-      </div>
-      <div className='order-details'>
-        <h2>Order details</h2>
-        <h5>Product name - {data.orders[0].product.name}</h5>
-        <h5>Product description - {data.orders[0].product.description}</h5>
-        <h5>Product price - {data.orders[0].product.price}</h5>
-        <h5>Product quantity - {data.orders[0].product.quantity}</h5>
-        <h5>Product category - {data.orders[0].product.category}</h5>
-        <h5>Total amount - {data.orders[0].totalAmount}</h5>
-        <h5>Payment method - {data.orders[0].paymentMethod}</h5>
-        <h5>Order status - {data.orders[0].orderStatus}</h5>
+      {order && (
+        <>
+          <div className='order-id'>
+            <h1>Order - {order.orderId}</h1>
+          </div>
+          <div className='order-details'>
+            <h2>Order details</h2>
+            <h5>Product name - {order.product.productname}</h5>
+            <h5>Product description - {order.product.description}</h5>
+            <h5>Product price - {order.product.price}</h5>
+            <h5>Product quantity - {order.product.quantity}</h5>
+            <h5>Product category - {order.product.category}</h5>
+            <h5>Total amount - {order.totalamount}</h5>
+            <h5>Payment method - {order.paymentmethod}</h5>
+            <h5>Order status - {order.orderStatus}</h5>
 
-        <div className='edit-order'>
-          <Link href={`/order/${data.orders[0].orderId}/edit`}>
-            <button>
-              <h5>Edit order</h5>
-            </button>
-          </Link>
-          <button className='delete-order-btn'>
-            <h5>Delete order</h5>
-          </button>
-        </div>
-      </div>
+            <div className='edit-order'>
+              <Link href={`/order/${order.orderId}/edit`}>
+                <button>
+                  <h5>Edit order</h5>
+                </button>
+              </Link>
+              <button className='delete-order-btn' onClick={handleDeleteOrder}>
+                <h5>Delete order</h5>
+              </button>
+            </div>
+          </div>
+        </>
+      )}
     </MainWrapper>
   );
 }
