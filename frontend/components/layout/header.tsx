@@ -1,14 +1,15 @@
 'use client';
 import styled from 'styled-components';
 import Image from 'next/image';
-import userStore from '../../lib/store';
+import userStore, { menuStore } from '../../lib/store';
 import placeHolder from '../../public/placeholder-user.jpg';
 import UserLogin from '../user-login';
+import { GiHamburgerMenu } from 'react-icons/gi';
 
 export default function Header() {
-  const { user, accountComponentOpen, setAccountComponentOpen } = userStore(
-    (state) => state
-  );
+  const { user } = userStore((state) => state);
+  const { accountComponentOpen, setAccountComponentOpen, setBurgerOpen } =
+    menuStore((state) => state);
   return (
     <HeaderStyle>
       {accountComponentOpen && <UserLogin />}
@@ -16,22 +17,27 @@ export default function Header() {
         <div>
           <h3>Barrel</h3>
         </div>
-        {user ? (
-          <div>
-            <p>{user.username}</p>
+        <div className='right-nav'>
+          {user ? (
+            <div>
+              <p>{user.username}</p>
+            </div>
+          ) : (
+            <div
+              className='image-placeholder-containeer'
+              onClick={() => setAccountComponentOpen(true)}
+            >
+              <Image
+                src={placeHolder}
+                alt='image place holder'
+                className='image-placeholder'
+              ></Image>
+            </div>
+          )}
+          <div onClick={() => setBurgerOpen(true)}>
+            <GiHamburgerMenu className='buger-menu-icon' />
           </div>
-        ) : (
-          <div
-            className='image-placeholder-containeer'
-            onClick={() => setAccountComponentOpen(true)}
-          >
-            <Image
-              src={placeHolder}
-              alt='image place holder'
-              className='image-placeholder'
-            ></Image>
-          </div>
-        )}
+        </div>
       </nav>
     </HeaderStyle>
   );
@@ -61,5 +67,32 @@ const HeaderStyle = styled.header`
     border-radius: 100%;
     overflow: hidden;
     cursor: pointer;
+  }
+
+  .buger-menu-icon {
+    display: none;
+  }
+
+  @media (max-width: 480px) {
+    /* Phone view */
+    height: 6rem;
+    padding: 2rem;
+
+    .image-placeholder-containeer,
+    .image-placeholder {
+      width: 3rem;
+      height: 3rem;
+    }
+
+    .right-nav {
+      display: flex;
+      align-items: center;
+    }
+
+    .buger-menu-icon {
+      display: block;
+      font-size: 3rem;
+      margin-left: 2rem;
+    }
   }
 `;

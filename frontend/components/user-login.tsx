@@ -5,7 +5,7 @@ import { IoCloseOutline } from 'react-icons/io5';
 import styled from 'styled-components';
 import axios from 'axios';
 import { toast } from 'sonner';
-import userStore from '../lib/store';
+import userStore, { menuStore } from '../lib/store';
 
 export default function UserLogin() {
   const [userInput, setUserInput] = useState({
@@ -14,8 +14,8 @@ export default function UserLogin() {
   });
 
   const [showPassword, setShowPassword] = useState(false);
-  const { user, setUser, accountComponentOpen, setAccountComponentOpen } =
-    userStore((state) => state);
+  const { setUser } = userStore((state) => state);
+  const { setAccountComponentOpen } = menuStore((state) => state);
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,11 +27,11 @@ export default function UserLogin() {
           setUser({
             username: res.data.user.customername,
             email: res.data.user.email,
-            // customername: res.data.user.customername,
             customerid: res.data.user.customerid,
           });
+          setAccountComponentOpen(false);
         } else {
-          // toast(res.data.message);
+          toast.error('Something went wrong');
         }
       })
       .catch((error) => {
@@ -116,7 +116,7 @@ const MainWrapper = styled.div`
     height: 100vh;
     background-color: black;
     opacity: 0.2;
-    z-index: 101;
+    z-index: 110;
   }
 
   .main-content-wrapper {
@@ -126,7 +126,7 @@ const MainWrapper = styled.div`
     position: absolute;
     right: 0;
     top: 0;
-    z-index: 102;
+    z-index: 111;
     padding: 2rem;
   }
 
@@ -197,6 +197,19 @@ const MainWrapper = styled.div`
     .create-account {
       margin-left: 1rem;
       text-decoration: underline;
+    }
+  }
+
+  @media (max-width: 768px) {
+    /* Tablet view */
+  }
+
+  @media (max-width: 480px) {
+    /* Phone view */
+    width: 100vw;
+
+    .main-content-wrapper {
+      width: 100vw;
     }
   }
 `;

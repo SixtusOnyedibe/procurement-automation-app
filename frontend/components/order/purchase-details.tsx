@@ -50,7 +50,7 @@ export default function PurchaseDetails() {
           ))}
         </div>
       ) : (
-        <div>
+        <div className='not-logged-in'>
           <h1>Login to view your orders</h1>
           <p>For testings, user</p>
           <p>Email: testuser@gmail.com</p>
@@ -93,5 +93,16 @@ const MainWrapper = styled.div`
   .order-quantity {
     display: flex;
     justify-content: center;
+  }
+
+  @media (max-width: 480px) {
+    /* Phone view */
+    padding: 8rem 2rem;
+
+    .not-logged-in {
+      h1 {
+        font-size: 2rem;
+      }
+    }
   }
 `;

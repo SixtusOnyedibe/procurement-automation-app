@@ -1,12 +1,9 @@
 'use client';
 
-import axios from 'axios';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { toast } from 'sonner';
 import styled from 'styled-components';
 import userStore from '../../../lib/store';
-import { useRouter } from 'next/navigation';
 import useOrder from '../../../hooks/use-order';
 import { Order } from '../../../types/order.type';
 
@@ -14,7 +11,6 @@ export default function OrderPage({ params }: { params: { orderId: string } }) {
   const { orderId } = params;
   const { user } = userStore((state) => state);
   const [order, setOrder] = useState<Order | null>(null);
-  const router = useRouter();
 
   const { fetchOrder, deleteOrder } = useOrder();
 
