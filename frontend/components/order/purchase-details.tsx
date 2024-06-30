@@ -28,8 +28,8 @@ export default function PurchaseDetails() {
       {user && orders ? (
         <div className='order-container'>
           <ul className='orders-row'>
-            <p>Order ID</p>
-            <p>Item name</p>
+            <p className='order-id'>Order ID</p>
+            <p className='item-name'>Item name</p>
             <p className='order-quantity'>Quantity</p>
             <p className='total-amount'>Total amount</p>
             <p className='order-status'>status</p>
@@ -39,8 +39,8 @@ export default function PurchaseDetails() {
               <hr />
               <Link href={`/order/${order.orderId}`}>
                 <ul className='orders-row orders'>
-                  <p>{order.orderId}</p>
-                  <p>{order.product.productname}</p>
+                  <p className='order-id'>{order.orderId}</p>
+                  <p className='item-name'>{order.product.productname}</p>
                   <p className='order-quantity'>{order.product.quantity}</p>
                   <p className='total-amount'>{order.totalamount}</p>
                   <p className='order-status'>{order.orderStatus}</p>
@@ -99,9 +99,17 @@ const MainWrapper = styled.div`
     /* Phone view */
     padding: 8rem 2rem;
 
-    .not-logged-in {
-      h1 {
-        font-size: 2rem;
+    p {
+      font-size: 1.4rem;
+    }
+
+    .orders-row {
+      grid-template-columns: 1fr 1fr;
+
+      .order-id,
+      .order-quantity,
+      .order-status {
+        display: none;
       }
     }
   }

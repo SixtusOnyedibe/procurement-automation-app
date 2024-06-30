@@ -107,4 +107,17 @@ const MainWrapper = styled.div`
       margin-right: 5rem;
     }
   }
+
+  @media (max-width: 480px) {
+    /* Phone view */
+    padding: 8rem 2rem;
+
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    .delete-order-btn {
+      margin-top: 2rem;
+    }
+  }
 `;

@@ -175,4 +175,32 @@ const MainWrapper = styled.div`
     grid-template-columns: repeat(2, 1fr);
     gap: 5rem;
   }
+
+  @media (max-width: 480px) {
+    /* Phone view */
+    padding: 8rem 2rem;
+
+    .not-logged-in {
+      h1 {
+        font-size: 2rem;
+      }
+    }
+
+    form {
+      padding: 2rem;
+
+      input {
+        border: 1px solid black;
+      }
+
+      .product-form-section {
+        grid-template-columns: 1fr;
+      }
+    }
+    button {
+      margin: 0 auto;
+      border: 1px solid black;
+      outline: none;
+    }
+  }
 `;
