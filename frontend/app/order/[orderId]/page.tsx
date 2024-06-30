@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import userStore from '../../../lib/store';
 import useOrder from '../../../hooks/use-order';
 import { Order } from '../../../types/order.type';
+import { formatter } from '../../..//lib/currency-formatter';
 
 export default function OrderPage({ params }: { params: { orderId: string } }) {
   const { orderId } = params;
@@ -38,14 +39,51 @@ export default function OrderPage({ params }: { params: { orderId: string } }) {
           </div>
           <div className='order-details'>
             <h2>Order details</h2>
-            <h5>Product name - {order.product.productname}</h5>
-            <h5>Product description - {order.product.description}</h5>
-            <h5>Product price - {order.product.price}</h5>
-            <h5>Product quantity - {order.product.quantity}</h5>
-            <h5>Product category - {order.product.category}</h5>
-            <h5>Total amount - {order.totalamount}</h5>
-            <h5>Payment method - {order.paymentmethod}</h5>
-            <h5>Order status - {order.orderStatus}</h5>
+            <h5>
+              Product name -{' '}
+              <span className='product-detail-span'>
+                {order.product.productname}
+              </span>
+            </h5>
+            <h5>
+              Product description -{' '}
+              <span className='product-detail-span'>
+                {order.product.description}
+              </span>
+            </h5>
+            <h5>
+              Product price -{' '}
+              <span className='product-detail-span'>
+                {formatter.format(order.product.price)}
+              </span>
+            </h5>
+            <h5>
+              Product quantity -{' '}
+              <span className='product-detail-span'>
+                {order.product.quantity}
+              </span>
+            </h5>
+
+            <h5>
+              Product category -{' '}
+              <span className='product-detail-span'>
+                {order.product.category}
+              </span>
+            </h5>
+            <h5>
+              Total amount -{' '}
+              <span className='product-detail-span'>
+                {formatter.format(order.totalamount)}
+              </span>
+            </h5>
+            <h5>
+              Payment method -{' '}
+              <span className='product-detail-span'>{order.paymentmethod}</span>
+            </h5>
+            <h5>
+              Order status -
+              <span className='product-detail-span'>{order.orderStatus}</span>
+            </h5>
 
             <div className='edit-order'>
               <Link href={`/order/${order.orderId}/edit`}>
@@ -68,7 +106,7 @@ const MainWrapper = styled.div`
   padding: 120px 50px 50px 250px;
   width: 100%;
   background-color: #f9fafb;
-  height: 100vh;
+  min-height: 100vh;
 
   .order-id {
     height: 70px;
@@ -78,9 +116,19 @@ const MainWrapper = styled.div`
   }
 
   .order-details {
-    padding: 0 2rem;
+    padding: 2rem 2rem;
     height: 100%;
     margin-top: 2rem;
+
+    background-color: white;
+
+    h2 {
+      margin-bottom: 2rem;
+    }
+
+    .product-detail-span {
+      font-weight: 400;
+    }
   }
 
   .edit-order {
@@ -110,10 +158,18 @@ const MainWrapper = styled.div`
 
   @media (max-width: 480px) {
     /* Phone view */
-    padding: 8rem 2rem;
+    padding: 7rem 0;
 
     h1 {
       font-size: 2.5rem;
+    }
+
+    .order-details {
+      margin-top: 0.5rem;
+    }
+
+    .edit-order {
+      margin-top: 5rem;
     }
 
     .delete-order-btn {

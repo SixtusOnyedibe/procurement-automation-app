@@ -15,7 +15,7 @@ export default function UserRegister() {
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-  };
+  }; 
 
   const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;

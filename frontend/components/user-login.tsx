@@ -19,25 +19,25 @@ export default function UserLogin() {
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await axios
-      .post('http://localhost:3001/api/auth/login', userInput)
-      .then((res) => {
-        if (res.status === 201) {
-          console.log(res);
-          setUser({
-            username: res.data.user.customername,
-            email: res.data.user.email,
-            customerid: res.data.user.customerid,
-          });
-          setAccountComponentOpen(false);
-        } else {
-          toast.error('Something went wrong');
-        }
-      })
-      .catch((error) => {
-        console.log(error.response.data.message);
-        toast(error.response.data.message);
-      });
+    try {
+      const res = await axios.post(
+        'http://localhost:3001/api/auth/login',
+        userInput
+      );
+
+      if (res.status === 201) {
+        setUser({
+          username: res.data.user.customername,
+          email: res.data.user.email,
+          customerid: res.data.user.customerid,
+        });
+        setAccountComponentOpen(false);
+      } else {
+        toast.error(res.data.message);
+      }
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message);
+    }
   };
 
   const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,7 +75,7 @@ export default function UserLogin() {
               onChange={handleUserInput}
             />
           </label>
-          <label htmlFor='password' className='password-label'>
+          {/* <label htmlFor='password' className='password-label'>
             <input
               type={showPassword ? 'text' : 'password'}
               name='password'
@@ -87,7 +87,7 @@ export default function UserLogin() {
             <span onClick={() => setShowPassword(!showPassword)}>
               {showPassword ? '🙈' : '👁️'}
             </span>
-          </label>
+          </label> */}
 
           <button type='submit'>Login</button>
         </form>

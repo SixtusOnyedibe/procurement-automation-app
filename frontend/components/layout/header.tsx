@@ -5,6 +5,7 @@ import userStore, { menuStore } from '../../lib/store';
 import placeHolder from '../../public/placeholder-user.jpg';
 import UserLogin from '../user-login';
 import { GiHamburgerMenu } from 'react-icons/gi';
+import Link from 'next/link';
 
 export default function Header() {
   const { user } = userStore((state) => state);
@@ -14,9 +15,9 @@ export default function Header() {
     <HeaderStyle>
       {accountComponentOpen && <UserLogin />}
       <nav>
-        <div>
-          <h3>Barrel</h3>
-        </div>
+        <Link href='/dashboard'>
+          <h3>Bpro</h3>
+        </Link>
         <div className='right-nav'>
           {user ? (
             <div>
@@ -53,6 +54,11 @@ const HeaderStyle = styled.header`
   color: white;
   padding: 50px;
   z-index: 100;
+
+  a {
+    text-decoration: none;
+    color: white;
+  }
 
   nav {
     height: 100%;

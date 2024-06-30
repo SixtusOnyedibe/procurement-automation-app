@@ -85,7 +85,10 @@ export default function SideBar() {
               <div className='log-out-btn-container'>
                 <button
                   className='log-out-btn log-in-btn'
-                  onClick={() => setAccountComponentOpen(true)}
+                  onClick={() => {
+                    setAccountComponentOpen(true);
+                    setBurgerOpen(false);
+                  }}
                 >
                   <h5>Login</h5>
                 </button>
@@ -256,8 +259,8 @@ const MainContainerSmallScreen = styled.div`
   @media (max-width: 480px) {
     /* Phone view */
     display: block;
-    position: fixed;
+    /* position: fixed;
     right: 0;
-    top: 0;
+    top: 0; */
   }
 `;

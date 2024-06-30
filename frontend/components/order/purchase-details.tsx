@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import userStore from '../../lib/store';
 import useOrder from '../../hooks/use-order';
 import { Order } from '../../types/order.type';
+import { formatter } from '../../lib/currency-formatter';
 
 export default function PurchaseDetails() {
   const [orders, setOrders] = useState<Order[] | null>(null);
@@ -42,7 +43,9 @@ export default function PurchaseDetails() {
                   <p className='order-id'>{order.orderId}</p>
                   <p className='item-name'>{order.product.productname}</p>
                   <p className='order-quantity'>{order.product.quantity}</p>
-                  <p className='total-amount'>{order.totalamount}</p>
+                  <p className='total-amount'>
+                    {formatter.format(order.totalamount)}
+                  </p>
                   <p className='order-status'>{order.orderStatus}</p>
                 </ul>
               </Link>
@@ -103,8 +106,17 @@ const MainWrapper = styled.div`
       font-size: 1.4rem;
     }
 
+    .order-container {
+      min-height: 80vh;
+      border: none;
+      padding: 2rem 0;
+      width: 100%;
+    }
+
     .orders-row {
       grid-template-columns: 1fr 1fr;
+      padding: 1.5rem 0;
+      /* padding-bottom: 1.5rem; */
 
       .order-id,
       .order-quantity,
