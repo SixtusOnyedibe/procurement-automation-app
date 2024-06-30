@@ -24,7 +24,7 @@
         {
           "orderId": "1719741491145",
           "orderDate": "2024-06-30T09:58:11.145Z",
-          "orderStatus": "pending",
+          "orderStatus": "success",
           "product": {
             "productid": "",
             "productname": "LuxeTech Smartwatch",
@@ -34,7 +34,7 @@
             "category": "Electronics/Wearable Devices"
           },
           "paymentmethod": "Cash",
-          "totalamount": 0
+          "totalamount": 75000
         }
       ]
     }

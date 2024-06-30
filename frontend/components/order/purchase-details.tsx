@@ -25,7 +25,7 @@ export default function PurchaseDetails() {
 
   return (
     <MainWrapper>
-      {orders ? (
+      {user && orders ? (
         <div className='order-container'>
           <ul className='orders-row'>
             <p>Order ID</p>

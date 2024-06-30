@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import userStore from '../../../../lib/store';
 import useOrder from '../../../../hooks/use-order';
-import { Order, Product } from '../../../../types/order.type';
+import { Product } from '../../../../types/order.type';
 
 export default function EditOrderPage({
   params,

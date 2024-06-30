@@ -18,13 +18,17 @@ export default function SideBar() {
           </li>
         </Link>
         <hr />
-        <Link href='/order/create'>
-          <li>
-            <MdOutlineAdd className='new-order-icon' />
-            <p>New order</p>
-          </li>
-        </Link>
-        <hr />
+        {user && (
+          <>
+            <Link href='/order/create'>
+              <li>
+                <MdOutlineAdd className='new-order-icon' />
+                <p>New order</p>
+              </li>
+            </Link>
+            <hr />
+          </>
+        )}
         {user ? (
           <div className='log-out-btn-container'>
             <button className='log-out-btn' onClick={() => setUser(null)}>
