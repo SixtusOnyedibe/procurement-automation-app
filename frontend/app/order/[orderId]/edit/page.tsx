@@ -1,45 +1,9 @@
 'use client';
 import { useEffect, useState } from 'react';
-// import { validateInput } from '../../../../lib/validateInput';
 import styled from 'styled-components';
-import axios from 'axios';
-import { toast } from 'sonner';
 import userStore from '../../../../lib/store';
-import { useRouter } from 'next/navigation';
-
-export interface NewOrder {
-  customerid: number;
-  customername: string;
-  email: string;
-  product: {
-    productid: string;
-    productname: string;
-    description: string;
-    price: number;
-    quantity: number;
-    category: string;
-  };
-  paymentmethod: string;
-  totalamount: number;
-}
-
-interface Product {
-  productid: string;
-  productname: string;
-  description: string;
-  price: number;
-  quantity: number;
-  category: string;
-}
-
-interface Order {
-  orderId: string;
-  orderDate: string;
-  orderStatus: string;
-  product: Product;
-  paymentmethod: string;
-  totalamount: number;
-}
+import useOrder from '../../../../hooks/use-order';
+import { Order, Product } from '../../../../types/order.type';
 
 export default function EditOrderPage({
   params,
@@ -48,7 +12,6 @@ export default function EditOrderPage({
 }) {
   const { orderId } = params;
 
-  const router = useRouter();
   const { user } = userStore();
 
   const emptyProduct = {
@@ -60,34 +23,20 @@ export default function EditOrderPage({
     category: '',
   };
 
-  const [order, setOrder] = useState<Order | null>(null);
   const [formData, setFormData] = useState<Product>(emptyProduct);
 
+  const { fetchOrder, updateOrder } = useOrder();
+
   useEffect(() => {
-    const customerid = user?.customerid;
-
-    async function fetchOrder() {
-      await axios
-        .get(`http://127.0.0.1:3001/api/orders/${orderId}`, {
-          params: {
-            customerid: customerid,
-          },
-        })
-        .then((res) => {
-          if (res.status === 200) {
-            setFormData(res.data.order.product);
-          } else {
-            toast(res.data.message);
-          }
-        })
-        .catch((error) => {
-          toast(error.response.data.message);
-        });
-    }
-    if (user) fetchOrder();
+    const fetchedOrder = async () => {
+      if (user) {
+        const data = await fetchOrder(orderId);
+        if (data) setFormData(data.product);
+      }
+    };
+    fetchedOrder();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
-
-  console.log(formData);
 
   function handleInputChange(
     e: React.ChangeEvent<
@@ -103,22 +52,7 @@ export default function EditOrderPage({
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    await axios
-      .put(`http://127.0.0.1:3001/api/orders/${orderId}`, {
-        customerid: user?.customerid,
-        product: formData,
-        orderStatus: 'success',
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          // setOrder(res.data.order);
-          // router.push('/order');
-          toast('Updated successfully');
-        } else {
-          toast(res.data.message);
-        }
-      })
-      .catch((error) => toast(error.response.data.message));
+    updateOrder(formData, orderId);
   }
 
   return (

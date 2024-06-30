@@ -9,16 +9,31 @@
         {
           "orderId": "1719703493289",
           "orderDate": "2024-06-29T23:24:53.289Z",
+          "orderStatus": "success",
+          "product": {
+            "productid": "",
+            "productname": "Head loading",
+            "description": "Head load",
+            "price": "500",
+            "quantity": "100",
+            "category": "Head loading"
+          },
+          "paymentmethod": "Head load",
+          "totalamount": 50000
+        },
+        {
+          "orderId": "1719741491145",
+          "orderDate": "2024-06-30T09:58:11.145Z",
           "orderStatus": "pending",
           "product": {
             "productid": "",
-            "productname": "Head load",
-            "description": "Head load",
-            "price": "5",
+            "productname": "LuxeTech Smartwatch",
+            "description": "The “LuxeTech Smartwatch” combines sleek design with advanced features. It tracks your fitness, monitors heart rate, and syncs seamlessly with your smartphone. Whether you’re hitting the gym or attending a business meeting, this smartwatch has you covered.",
+            "price": "15000",
             "quantity": "5",
-            "category": "Head load"
+            "category": "Electronics/Wearable Devices"
           },
-          "paymentmethod": "Head load",
+          "paymentmethod": "Cash",
           "totalamount": 0
         }
       ]

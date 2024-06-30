@@ -1,7 +1,7 @@
 import axios from 'axios';
 import userStore from '../lib/store';
 import { toast } from 'sonner';
-import { NewOrder } from '@/types/order.type';
+import { NewOrder, Product } from '../types/order.type';
 import { useRouter } from 'next/navigation';
 
 export default function useOrder() {
@@ -71,6 +71,30 @@ export default function useOrder() {
     }
   };
 
+  // Update Order
+  const updateOrder = async (formData: Product, orderId: string) => {
+    axios.defaults.withCredentials = true;
+    try {
+      const res = await axios.put(
+        `http://127.0.0.1:3001/api/orders/${orderId}`,
+        {
+          customerid: user?.customerid,
+          product: formData,
+          orderStatus: 'success',
+        }
+      );
+
+      if (res.status === 200) {
+        toast.success(res.data.message);
+        router.push('/dashboard');
+      } else {
+        toast.error(res.data.message);
+      }
+    } catch (error) {
+      toast.error('An error occurred');
+    }
+  };
+
   // Delete order
   const deleteOrder = async (orderId: string) => {
     try {
@@ -97,6 +121,7 @@ export default function useOrder() {
     fetchOrders,
     fetchOrder,
     createOrder,
+    updateOrder,
     deleteOrder,
   };
 }
