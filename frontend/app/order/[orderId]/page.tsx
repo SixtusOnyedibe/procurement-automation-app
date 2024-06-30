@@ -26,6 +26,7 @@ export default function OrderPage({ params }: { params: { orderId: string } }) {
       }
     };
     fetchedOrder();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const handleDeleteOrder = async () => {

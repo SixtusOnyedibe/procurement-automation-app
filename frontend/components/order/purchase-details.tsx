@@ -20,6 +20,7 @@ export default function PurchaseDetails() {
       }
     };
     fetchedOrders();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return (

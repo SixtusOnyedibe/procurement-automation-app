@@ -16,7 +16,8 @@
     "react-dom": "^18",
     "react-icons": "^5.2.1",
     "sonner": "^1.5.0",
-    "styled-components": "^6.1.11"
+    "styled-components": "^6.1.11",
+    "zustand": "^4.5.4"
   },
   "devDependencies": {
     "@types/node": "^20",
