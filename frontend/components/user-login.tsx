@@ -68,6 +68,7 @@ export default function UserLogin() {
           <label htmlFor='email'>
             <input
               type='email'
+              aria-label='email'
               id='email'
               name='email'
               placeholder='Email'
