@@ -6,17 +6,30 @@ Basic feature for procurement automation app
 
 This project uses:
 
-- React, Next js
-- Node, Express js
+- React, Next.js
+- Node, Express.js
 
-### Backend
+## Getting Started
+---
 
-- `cd backend`
-- `npm i`
-- `npm run dev`
+- Clone the Repository: `git clone https://github.com/SixtusOnyedibe/procurement-automation-app.git`
+- cd `procurement-automation-app`
 
-### Running the Nextjs Frontend
+## Running the Express.js Backend
+---
 
-- `cd frontend`
-- `npm i`
-- `npm run dev`
+- Navigate to the backend: `cd backend`
+- Install dependencies: `npm install`
+- Start the backend application: `npm run dev`
+
+## Running the Next.js Frontend
+---
+
+- Navigate to the frontend: `cd frontend`
+- Install dependencies: `npm install`
+- Start the Frontend application: `npm run dev`
+
+### To run test on the Frontend
+
+- Navigate to the frontend: `cd frontend`
+- Open a new terminal and run the tests: `npm test`
